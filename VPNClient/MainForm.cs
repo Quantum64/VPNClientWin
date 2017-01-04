@@ -20,13 +20,13 @@ namespace VPNClient {
             this.InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.chrome = new ChromiumWebBrowser("https://q64.co") {
+            this.chrome = new ChromiumWebBrowser("https://q64.co/endpoint") {
                 Dock = DockStyle.Fill,
             };
             chrome.FrameLoadEnd += browserOnFrameLoadEnd;
             int currentDPI = 0;
             using (Graphics g = this.CreateGraphics()) {
-                currentDPI = (int) g.DpiX;
+                currentDPI = (int)g.DpiX;
             }
             this.factor = currentDPI / 96.0;
             this.Controls.Add(chrome);
@@ -38,11 +38,11 @@ namespace VPNClient {
 
         private void browserOnFrameLoadEnd(object sender, FrameLoadEndEventArgs frameLoadEndEventArgs) {
             ChromiumWebBrowser browser = (ChromiumWebBrowser)sender;
-            //Dispatcher.Invoke(() =>
-            //{
-             //   ZoomLevelTextBox.Text = ((Convert.ToDouble(browser.Tag) - 100) / 25.0).ToString(CultureInfo.CurrentCulture);
-                browser.SetZoomLevel(factor * 2);
-            //});
+            browser.SetZoomLevel(factor * 2);
+        }
+
+        private void openAccountPage() {
+            System.Diagnostics.Process.Start("https://q64.co");
         }
     }
 }
