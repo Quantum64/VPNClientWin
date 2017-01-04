@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(971, 819);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Q64 VPN Client";
             this.ResumeLayout(false);
 
         }
