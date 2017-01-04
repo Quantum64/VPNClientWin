@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using System.Diagnostics;
 
 namespace VPNClient {
     public partial class MainForm : Form {
@@ -30,6 +31,7 @@ namespace VPNClient {
             }
             this.factor = currentDPI / 96.0;
             this.Controls.Add(chrome);
+            Debug.WriteLine("Running CEF at scale factor " + factor + " for DPI");
         }
 
         private void initBrowser() {

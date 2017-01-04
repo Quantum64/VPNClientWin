@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
+using System.Diagnostics;
 
 namespace VPNClient {
-    static class Program {
+    public static class Program {
         [STAThread]
         static void Main() {
             if (Environment.OSVersion.Version.Major >= 6) {
@@ -26,6 +27,13 @@ namespace VPNClient {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+
+            try {
+                SystemUtil.createVPNConnection("Q64 Test 2", "net.q64.co", "usernamelol", "pass");
+            } catch (Exception e) {
+                Debug.WriteLine("Failed to create VPN connection! Are you running as admin?");
+                Debug.WriteLine(e.ToString());
+            }
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
