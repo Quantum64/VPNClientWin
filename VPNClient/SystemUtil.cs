@@ -36,5 +36,9 @@ namespace VPNClient {
                 client.DownloadFile(source, destination);
             }
         }
+
+        public static void openSystemBrowser(String url) {
+            System.Diagnostics.Process.Start(url);
+        }
     }
 }

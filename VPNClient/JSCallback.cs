@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace VPNClient {
     public class JSCallback {
-
+        public void openBrowser(String url) {
+            SystemUtil.openSystemBrowser(url);
+        }
     }
 }
