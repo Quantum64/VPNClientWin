@@ -11,8 +11,6 @@ using System.Diagnostics;
 
 namespace VPNClient {
     public class SystemUtil {
-        public static object Paths { get; private set; }
-
         public bool isInstalled(String cert) {
             X509Certificate2 target = new X509Certificate2(X509Certificate2.CreateFromCertFile(cert));
             X509Store store = new X509Store(StoreName.My);
@@ -37,32 +35,6 @@ namespace VPNClient {
             using (var client = new WebClient()) {
                 client.DownloadFile(source, destination);
             }
-        }
-
-        public static void createVPNConnection(String name, String ip, String username, String password) {
-            RasPhoneBook book = new RasPhoneBook();
-            book.Open(RasPhoneBook.GetPhoneBookPath(RasPhoneBookType.User));
-            foreach(RasEntry e in book.Entries) {
-                if (name.Equals(e.Name)) {
-                    Debug.WriteLine("Updating VPN user/password since it already exists");
-                    e.UpdateCredentials(new NetworkCredential(username, password));
-                    return;
-                }                
-            }
-
-            RasDevice device = null;
-            foreach (RasDevice d in RasDevice.GetDevices()) {
-                if (d.Name.Contains("IKEv2")) {
-                    device = d;
-                }
-            }
-            RasEntry entry = RasEntry.CreateVpnEntry(name, ip, RasVpnStrategy.IkeV2Only, device);
-            entry.Options.RemoteDefaultGateway = true;
-            entry.Options.ShowDialingProgress = true;
-            //entry.Options.RequireEap = true;
-
-            book.Entries.Add(entry);
-            entry.UpdateCredentials(new NetworkCredential(username, password));
         }
     }
 }
