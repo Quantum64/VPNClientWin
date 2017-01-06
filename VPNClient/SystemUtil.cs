@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace VPNClient {
     public class SystemUtil {
-        public bool isInstalled(String cert) {
+        public static bool isInstalled(String cert) {
             X509Certificate2 target = new X509Certificate2(X509Certificate2.CreateFromCertFile(cert));
             X509Store store = new X509Store(StoreName.My);
             foreach (X509Certificate2 itr in store.Certificates) {
@@ -29,12 +29,13 @@ namespace VPNClient {
             store.Close();
         }
 
-        public static void downloadFile(String source) {
+        public static String downloadFile(String source) {
             String destination = Path.GetTempFileName();
             File.Delete(destination);
             using (var client = new WebClient()) {
                 client.DownloadFile(source, destination);
             }
+            return destination;
         }
 
         public static void openSystemBrowser(String url) {

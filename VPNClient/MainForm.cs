@@ -15,7 +15,7 @@ namespace VPNClient {
     public partial class MainForm : Form {
         private ChromiumWebBrowser chrome { get; }
         private double factor = 1.0f;
-        private VPNConnector connector;
+        private JSCallback callback { get; }
 
         public MainForm() {
             this.AutoScaleMode = AutoScaleMode.Font;
@@ -26,19 +26,16 @@ namespace VPNClient {
                 Dock = DockStyle.Fill,
             };
             chrome.FrameLoadEnd += browserOnFrameLoadEnd;
-            chrome.RegisterJsObject("cefobj", new JSCallback());
             int currentDPI = 0;
             using (Graphics g = this.CreateGraphics()) {
                 currentDPI = (int)g.DpiX;
             }
             this.factor = currentDPI / 96.0;
             this.Controls.Add(chrome);
-            
+            this.callback = new JSCallback(chrome);
+            chrome.RegisterJsObject("cefobj", callback);
+
             Debug.WriteLine("Running CEF at scale factor " + factor + " for DPI");
-        }
-
-        private void initBrowser() {
-
         }
 
         private void browserOnFrameLoadEnd(object sender, FrameLoadEndEventArgs frameLoadEndEventArgs) {
