@@ -22,7 +22,7 @@ namespace VPNClient {
             this.InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.chrome = new ChromiumWebBrowser("https://q64.co/endpoint") {
+            this.chrome = new ChromiumWebBrowser("https://q64.co/endpoint/win") {
                 Dock = DockStyle.Fill,
             };
             chrome.FrameLoadEnd += browserOnFrameLoadEnd;

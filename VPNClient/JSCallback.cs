@@ -16,6 +16,11 @@ namespace VPNClient {
             this.chrome = chrome;
         }
 
+        public void noauth() {
+            openBrowser("https://q64.co");
+            System.Windows.Forms.Application.Exit();
+        }
+
         public void openBrowser(String url) {
             SystemUtil.openSystemBrowser(url);
         }
